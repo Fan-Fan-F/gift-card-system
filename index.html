@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>礼品卡系统 · Gift Card</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="head">
+    <h1>🎁 礼品卡系统</h1>
+    <p>开卡（Luhn 校验卡号）· 分次核销 · 转赠 · 流水台账</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="issue">开卡</button>
+    <button class="tab" data-tab="redeem">核销</button>
+    <button class="tab" data-tab="cards">卡列表</button>
+  </div>
+
+  <!-- 开卡 -->
+  <section id="tab-issue" class="card">
+    <h2>开具礼品卡</h2>
+    <div class="amount-row" id="amountRow">
+      <button class="amt" data-amt="100">¥100</button>
+      <button class="amt active" data-amt="200">¥200</button>
+      <button class="amt" data-amt="500">¥500</button>
+      <button class="amt" data-amt="1000">¥1000</button>
+      <input id="customAmt" type="number" placeholder="自定义" min="1" max="10000">
+    </div>
+    <div class="theme-row" id="themeRow"></div>
+    <label>持卡人（可留空待转赠）
+      <input id="holderInput" placeholder="收卡人称呼">
+    </label>
+    <button id="issueBtn" class="primary">开具礼品卡</button>
+    <div id="newCardBox" class="new-card" hidden></div>
+  </section>
+
+  <!-- 核销 -->
+  <section id="tab-redeem" class="card" hidden>
+    <h2>模拟收银台核销</h2>
+    <div class="mock-order">
+      <span>演示订单金额</span>
+      <div class="order-amt">
+        <button data-step="-10">−</button>
+        <strong id="orderAmt">¥356.00</strong>
+        <button data-step="10">＋</button>
+      </div>
+    </div>
+    <label>礼品卡号
+      <input id="redeemCode" placeholder="GC-XXXX-XXXX-XXXX-XXXX">
+    </label>
+    <label>使用金额（0 = 尽量全额抵扣）
+      <input id="redeemAmt" type="number" value="0" min="0" step="0.01">
+    </label>
+    <button id="redeemBtn" class="primary">使用礼品卡支付</button>
+    <div id="redeemResult" class="redeem-result" hidden></div>
+  </section>
+
+  <!-- 卡列表 -->
+  <section id="tab-cards" class="card" hidden>
+    <h2>卡列表（<span id="cardCount">0</span>）</h2>
+    <div id="cardList"></div>
+    <div id="ledgerBox" class="ledger-box" hidden>
+      <h3>流水台账 · <span id="ledgerCode" class="mono"></span></h3>
+      <div id="ledgerList"></div>
+    </div>
+  </section>
+</main>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
